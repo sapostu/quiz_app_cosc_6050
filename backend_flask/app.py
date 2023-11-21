@@ -24,13 +24,40 @@ cors = CORS(app)
 def index():
     return {"type_return": "howdy"}
 
-@app.route("/test", methods=['POST'])
+@app.route("/getQuizzesWithoutQuestions", methods=['POST'])
 def test():
     _data = request.get_json()
     print(f"REQUST = {_data}")
 
+    #THIS IS WORKING VERSION; TESTING SOMETHING ELSE
+    # quiz_docs = db.collection('quizzes').stream()
+    
+    # my_dict = { doc.id: doc.to_dict() for doc in quiz_docs }
 
-    return {"we": 10, "test": 3}
+    # print(f"My json = {my_dict}")
+
+
+
+    collection_ref = db.collection('quizzes')
+
+
+    docs = collection_ref.stream()
+
+    data = []
+
+    for doc in docs:
+        data_entry = {
+            "id": doc.id,
+            "data": doc.to_dict()
+        }
+
+        data.append(data_entry)
+    
+    print(f"ARRAY = {data}")
+    
+    return json.dumps(data)
+
+
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
