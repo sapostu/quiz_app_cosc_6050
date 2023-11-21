@@ -6,7 +6,7 @@ export async function getAllQuizzes() {
         'name': 'hello',
         'number': 1110
     }
-    console.log("BODY I AM SENDING IS = ", JSON.stringify(_body))
+    // console.log("BODY I AM SENDING IS = ", JSON.stringify(_body))
 
     let obj;
 
@@ -19,7 +19,9 @@ export async function getAllQuizzes() {
     obj = await res.json();
 
 
-    console.log("arr arr = ", obj)
+    // console.log("arr arr = ", obj)
+
+    return obj
 
 
 

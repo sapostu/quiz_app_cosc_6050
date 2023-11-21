@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { getAllQuizzes } from '../api/helper/QuizApi';
+import { getAllQuizzes } from '../../api/helper/QuizApi';
 
 const WelcomePage = ({
 
@@ -12,7 +12,8 @@ const WelcomePage = ({
         <>
          <h1>Welcome to our COSC 6050 Quiz application</h1>
          <h2>By Sil Apostu, and others</h2>
-         <button onClick={ (e) => { getAllQuizzes() } }>yoyo</button>
+         {/* <button onClick={ (e) => { getAllQuizzes() } }>yoyo</button> */}
+         <button onClick={(e) => { window.location.replace("http://localhost:3000/quizzes") }} > Go to Quiz Page</button>
         </>
     );
 
