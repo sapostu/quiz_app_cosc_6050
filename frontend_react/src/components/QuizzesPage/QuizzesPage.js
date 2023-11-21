@@ -30,9 +30,16 @@ const QuizzesPage = ({
 
     }, [])
 
+    const startQuiz = (quiz_id, quiz_name, num_questions) => {
+
+        console.log("QUIZ SELECTED = ", quiz_id)
+        window.location.replace(`http://localhost:3000/takeQuiz?id=${quiz_id}&quiz_name=${quiz_name}&num_questions=${num_questions}`)
+
+    };
 
 
-    console.log("quizzes = ", quizzes)
+
+    // console.log("quizzes = ", quizzes)
 
 
     return(
@@ -48,11 +55,13 @@ const QuizzesPage = ({
                         <Col key={quiz.id} md={4} className="mb-4">
                             <Card key={quiz.id} className="quizzes-page-card">                            
 
-                                <Card.Title>{quiz.data.quiz_name}</Card.Title>
+                                <Card.Title>QUIZ: {quiz.data.quiz_name}</Card.Title>
                                 <Card.Body>
 
-                                    <Card.Text>{quiz.data.num_questions}</Card.Text>
-                                    <Button variant="primary">TAKE THIS QUIZ</Button>
+                                    <Card.Text>DESCRIPTION: {quiz.data.description}</Card.Text>
+                                    <Card.Text>NUMBER OF QUESTIONS: {quiz.data.num_questions}</Card.Text>
+
+                                    <Button variant="primary" onClick={ (e) => { startQuiz( quiz.id, quiz.data.quiz_name, quiz.data.num_questions ) } }>TAKE THIS QUIZ</Button>
                                 </Card.Body>
                             </Card>
                         </Col>

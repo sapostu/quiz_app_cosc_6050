@@ -26,3 +26,27 @@ export async function getAllQuizzes() {
 
 
 }
+
+export async function getQuizQuestions ( request_body ) {
+
+    const url = "http://localhost:8000/getQuizQuestions"
+
+    console.log("BODY BODY = ", request_body)
+
+
+    let obj;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(request_body)
+    });
+
+    obj = await res.json();
+
+
+    console.log("arr arr = ", obj)
+
+    return obj
+
+}

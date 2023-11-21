@@ -29,14 +29,6 @@ def test():
     _data = request.get_json()
     print(f"REQUST = {_data}")
 
-    #THIS IS WORKING VERSION; TESTING SOMETHING ELSE
-    # quiz_docs = db.collection('quizzes').stream()
-    
-    # my_dict = { doc.id: doc.to_dict() for doc in quiz_docs }
-
-    # print(f"My json = {my_dict}")
-
-
 
     collection_ref = db.collection('quizzes')
 
@@ -56,6 +48,20 @@ def test():
     print(f"ARRAY = {data}")
     
     return json.dumps(data)
+
+@app.route("/getQuizQuestions", methods=['POST'])
+def getQuizQuestions():
+
+    _data = request.get_json()
+    _id = _data["id"]
+
+    quiz_questions_ref = db.collection('quizzes').document(_id).collection('quiz_questions')
+
+    quiz_questions_collection = [doc.to_dict() for doc in quiz_questions_ref.stream()]
+    print(f"\n\nCollection = {quiz_questions_collection}  \n\n")
+
+
+    return jsonify(quiz_questions_collection)
 
 
 
