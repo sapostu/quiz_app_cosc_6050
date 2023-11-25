@@ -31,7 +31,7 @@ export async function getQuizQuestions ( request_body ) {
 
     const url = "http://localhost:8000/getQuizQuestions"
 
-    console.log("BODY BODY = ", request_body)
+    // console.log("BODY BODY = ", request_body)
 
 
     let obj;
@@ -45,7 +45,7 @@ export async function getQuizQuestions ( request_body ) {
     obj = await res.json();
 
 
-    console.log("arr arr = ", obj)
+    // console.log("arr arr = ", obj)
 
     return obj
 
