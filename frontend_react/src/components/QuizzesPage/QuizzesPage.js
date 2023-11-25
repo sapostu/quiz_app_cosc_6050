@@ -44,7 +44,8 @@ const QuizzesPage = ({
 
     return(
         <>
-            <h1>test route</h1>
+            <h1>Would you like to create your own quiz? Click below</h1>
+            <Button onClick={ (e) => { window.location.replace(`http://localhost:3000/createQuiz`) } }>Create a Quiz</Button>
             <h1 className="mt-4 mb-4">List of Cards</h1>
 
             { quizzes.length !== 0 ? 
