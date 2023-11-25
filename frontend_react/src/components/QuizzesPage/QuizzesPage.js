@@ -1,5 +1,5 @@
-import {React, useEffect, useState} from 'react';
-import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import { React, useEffect, useState } from 'react';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 import { getAllQuizzes } from '../../api/helper/QuizApi';
 import './QuizzesPage.css'; // Import your CSS file
 
@@ -22,9 +22,9 @@ const QuizzesPage = ({
 
             const response = await getAllQuizzes()
             setQuizzes(response);
-    
-        }    
-        
+
+        }
+
         fetchData()
 
 
@@ -42,19 +42,19 @@ const QuizzesPage = ({
     // console.log("quizzes = ", quizzes)
 
 
-    return(
+    return (
         <>
             <h1>Would you like to create your own quiz? Click below</h1>
-            <Button onClick={ (e) => { window.location.replace(`http://localhost:3000/createQuiz`) } }>Create a Quiz</Button>
+            <Button onClick={(e) => { window.location.replace(`http://localhost:3000/createQuiz`) }}>Create a Quiz</Button>
             <h1 className="mt-4 mb-4">List of Cards</h1>
 
-            { quizzes.length !== 0 ? 
+            {quizzes.length !== 0 ?
 
 
                 <Row>
                     {quizzes.map(quiz => (
                         <Col key={quiz.id} md={4} className="mb-4">
-                            <Card key={quiz.id} className="quizzes-page-card">                            
+                            <Card key={quiz.id} className="quizzes-page-card">
 
                                 <Card.Title>QUIZ: {quiz.data.quiz_name}</Card.Title>
                                 <Card.Body>
@@ -62,18 +62,18 @@ const QuizzesPage = ({
                                     <Card.Text>DESCRIPTION: {quiz.data.description}</Card.Text>
                                     <Card.Text>NUMBER OF QUESTIONS: {quiz.data.num_questions}</Card.Text>
 
-                                    <Button variant="primary" onClick={ (e) => { startQuiz( quiz.id, quiz.data.quiz_name, quiz.data.num_questions ) } }>TAKE THIS QUIZ</Button>
+                                    <Button variant="primary" onClick={(e) => { startQuiz(quiz.id, quiz.data.quiz_name, quiz.data.num_questions) }}>TAKE THIS QUIZ</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))}
                 </Row>
-            
-            :
-            <h1>NOTHING</h1>
+
+                :
+                <h1>NOTHING</h1>
 
             }
-            
+
 
         </>
     );

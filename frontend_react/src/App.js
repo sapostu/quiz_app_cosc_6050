@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
+import { React } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import WelcomePage from './components/WelcomePage/WelcomePage';
 import QuizzesPage from './components/QuizzesPage/QuizzesPage';

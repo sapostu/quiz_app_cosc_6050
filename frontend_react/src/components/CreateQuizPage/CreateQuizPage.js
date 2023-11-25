@@ -1,37 +1,123 @@
-import {React, useEffect, useState} from 'react';
+import { React, useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Button, Form } from 'react-bootstrap';
 
+
+let _key = 0
 
 const CreateQuizPage = ({
 
 }) => {
 
-    return(
+    const [questions, setQuestions] = useState([{
+        "id": _key,
+        "question": "",
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": "",
+        "correct_answer": ""
+    }])
+    // const [key, setKey] = useState(1)
+
+
+    const addQuestion = () => {
+
+
+        _key += 1;
+        let temp = questions
+        temp.push({
+            "id": _key,
+            "question": "",
+            "A": "",
+            "B": "",
+            "C": "",
+            "D": "",
+            "correct_answer": ""
+        })
+
+        alert(`Added new question below`)
+
+
+        return temp
+
+
+
+    }
+
+    const updateQuizQuestion = (_id, _type, _value) => {
+
+        switch (_type) {
+
+            case "question":
+                // code block
+                questions[_id].question = _value
+                break;
+
+            case "A":
+                // code block
+                questions[_id].A = _value
+                break;
+
+            case "B":
+                // code block
+                questions[_id].B = _value
+                break;
+
+            case "C":
+                // code block
+                questions[_id].C = _value
+                break;
+
+            case "D":
+                // code block
+                questions[_id].D = _value
+                break;
+
+            case "correct_answer":
+                // code block
+                questions[_id].correct_answer = _value
+                break;
+
+            default:
+                // code block
+                console.log("updated question = ", questions[_id])
+
+        }
+        console.log("updated question = ", questions[_id])
+
+        return
+
+    };
+
+    return (
         <div>
-            <Button variant="primary" onClick={ (e) => { window.location.replace(`http://localhost:3000/quizzes`) } } >Home</Button>
-            <h1>Register Here!!</h1>
+            <Button variant="primary" onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }} >Home</Button>
+            <h1>Create Quiz!! Add questions below, press 'Submit' when done</h1>
+            <Button onClick={(e) => { let temp = addQuestion(); setQuestions(temp.slice(0)); }}>Add Question</Button>
 
+            {questions.map(question => (
+                <Card key={question.id} className="quizzes-page-card">
 
-<Card className="quizzes-page-card">                            
+                    <Card.Title>New Question {question.id + 1}</Card.Title>
+                    <Card.Body>
 
-<Card.Title>New Question</Card.Title>
-<Card.Body>
+                        <Card.Text>Question</Card.Text>
+                        <input type="text" defaultValue={question.question} onChange={(e) => { updateQuizQuestion(question.id, "question", e.target.value) }} />
+                        <Card.Text>Option A:</Card.Text>
+                        <input type="text" defaultValue={question.A} onChange={(e) => { updateQuizQuestion(question.id, "A", e.target.value) }} />
+                        <Card.Text>Option B:</Card.Text>
+                        <input type="text" defaultValue={question.B} onChange={(e) => { updateQuizQuestion(question.id, "B", e.target.value) }} />
+                        <Card.Text>Option C:</Card.Text>
+                        <input type="text" defaultValue={question.C} onChange={(e) => { updateQuizQuestion(question.id, "C", e.target.value) }} />
+                        <Card.Text>Option D:</Card.Text>
+                        <input type="text" defaultValue={question.D} onChange={(e) => { updateQuizQuestion(question.id, "D", e.target.value) }} />
+                        <Card.Text>CORRECT ANSWER ( A, B, C, D )</Card.Text>
+                        <input type="text" defaultValue={question.correct_answer} onChange={(e) => { updateQuizQuestion(question.id, "correct_answer", e.target.value) }} />
 
-    <Card.Text>Question</Card.Text>
-    <input type="text"/>
-    <Card.Text>Option A:</Card.Text>
-    <input type="text"/>
-    <Card.Text>Option B:</Card.Text>
-    <input type="text"/>
-    <Card.Text>Option C:</Card.Text>
-    <input type="text"/>
-    <Card.Text>Option D:</Card.Text>
-    <input type="text"/>
-    <Card.Text>CORRECT ANSWER ( A, B, C, D )</Card.Text>
-    <input type="text"/>
+                    </Card.Body>
+                </Card>
+            ))}
 
-</Card.Body>
-</Card>
 
         </div>
     );
