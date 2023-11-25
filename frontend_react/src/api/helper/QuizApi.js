@@ -50,3 +50,44 @@ export async function getQuizQuestions ( request_body ) {
     return obj
 
 }
+
+export async function createQuiz( quizName, description, numQuestions, questions ) {
+
+    // console.log("WE GOT TO REQUEST BODY")
+    // console.log("=== ", request_body)
+
+    let request_body = {
+        "quiz_name": quizName,
+        "description": description,
+        "num_questions": numQuestions.toString(),
+        "quiz_questions": questions
+    }
+
+    const url = "http://localhost:8000/createQuiz"
+
+    // console.log("BODY BODY = ", request_body)
+
+
+    let obj;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Access-control-allow-origin': '*'},
+        body: JSON.stringify(request_body)
+    });
+
+    obj = await res.json();
+    console.log("OBJ = ", obj)
+
+    if ( obj.status_code >= 200 && obj.status_code < 300 ) {
+        alert(`Created quiz: ${quizName}`)
+        console.log("SUCCESS")
+        window.location.replace(`http://localhost:3000/quizzes`)
+    }
+
+
+    // console.log("arr arr = ", obj)
+
+    return obj
+
+}

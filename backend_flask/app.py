@@ -11,6 +11,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
 
+
 cred = credentials.Certificate("../serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
@@ -63,6 +64,32 @@ def getQuizQuestions():
 
     return jsonify(quiz_questions_collection)
 
+@app.route("/createQuiz", methods=['POST'])
+def createQuiz():
+
+
+    _data = request.get_json()
+    question_array = _data['quiz_questions']
+    print(f"request = {_data}")
+
+
+    toAdd = { 
+        "quiz_name":  _data['quiz_name'],
+        "description": _data['description'],
+        "num_questions": _data['num_questions']
+    }
+    # for question in _data:
+    #     db.collection("quizzes").document("9TzOwcdGT12L6iOQ9azy").set(question)
+
+    # doc_ref = db.collection("quizzes").add(_data)
+
+    doc_ref = db.collection("quizzes").add(toAdd)
+
+    for question in question_array:
+        db.collection("quizzes").document(doc_ref[1].id).collection("quiz_questions").add(question)
+
+
+    return { "status_code": 200 }
 
 
 if __name__ == "__main__":

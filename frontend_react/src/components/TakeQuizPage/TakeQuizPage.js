@@ -28,7 +28,7 @@ const TakeQuizPage = ({
 
         if( selected_answer === currentQuestion.correct_answer ) {
 
-            setPoints(points + 100);
+            setPoints(points + 1);
 
             if ( !(qIndex >= questions.length) ) {
                 setQIndex( qIndex + 1 )
@@ -111,7 +111,7 @@ const TakeQuizPage = ({
     return(
         
         <>
-            <h1>POINTS = {points}</h1>
+            <h1>Score = {points}/{questions.length}</h1>
 
             { !completedFlag ? 
 

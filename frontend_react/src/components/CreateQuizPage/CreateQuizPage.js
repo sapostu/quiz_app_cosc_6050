@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { createQuiz } from '../../api/helper/QuizApi';
 
 
 let _key = 0
@@ -17,6 +18,12 @@ const CreateQuizPage = ({
         "D": "",
         "correct_answer": ""
     }])
+
+    const [quizName, setQuizName] = useState("")
+    const [description, setDescription] = useState("")
+    const [numQuestions, setNumQuestions] = useState(1)
+
+
     // const [key, setKey] = useState(1)
 
 
@@ -36,6 +43,8 @@ const CreateQuizPage = ({
         })
 
         alert(`Added new question below`)
+
+        setNumQuestions( numQuestions + 1 )
 
 
         return temp
@@ -80,10 +89,10 @@ const CreateQuizPage = ({
 
             default:
                 // code block
-                console.log("updated question = ", questions[_id])
+                // console.log("updated question = ", questions[_id])
 
         }
-        console.log("updated question = ", questions[_id])
+        // console.log("updated question = ", questions[_id])
 
         return
 
@@ -93,7 +102,21 @@ const CreateQuizPage = ({
         <div>
             <Button variant="primary" onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }} >Home</Button>
             <h1>Create Quiz!! Add questions below, press 'Submit' when done</h1>
-            <Button onClick={(e) => { let temp = addQuestion(); setQuestions(temp.slice(0)); }}>Add Question</Button>
+            <Button onClick={ (e) => { let temp = addQuestion(); setQuestions(temp.slice(0)); }}>Add Question</Button>
+            <Button onClick={ (e) => { createQuiz( quizName, description, numQuestions, questions ) } }>Create Quiz</Button>
+
+            <span>Quiz Name</span>
+            <input type="text" defaultValue="" onChange={ (e) => { setQuizName(e.target.value) } }/>
+            <br/>
+            <span>Description</span>
+            <br/>
+            <textarea type="text" defaultValue="" onChange={ (e) => { setDescription(e.target.value) } }>
+
+            </textarea>
+
+
+            <br/>
+            <span>Number of Questions: {numQuestions}</span>
 
             {questions.map(question => (
                 <Card key={question.id} className="quizzes-page-card">
