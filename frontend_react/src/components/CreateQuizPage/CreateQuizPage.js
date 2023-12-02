@@ -100,10 +100,9 @@ const CreateQuizPage = ({
 
     return (
         <div>
-            <Button variant="primary" onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }} >Home</Button>
             <h1>Create Quiz!! Add questions below, press 'Submit' when done</h1>
+            <Button onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }}>Back to Quizzes</Button>
             <Button onClick={ (e) => { let temp = addQuestion(); setQuestions(temp.slice(0)); }}>Add Question</Button>
-            <Button onClick={ (e) => { createQuiz( quizName, description, numQuestions, questions ) } }>Create Quiz</Button>
 
             <span>Quiz Name</span>
             <input type="text" defaultValue="" onChange={ (e) => { setQuizName(e.target.value) } }/>
@@ -140,6 +139,9 @@ const CreateQuizPage = ({
                     </Card.Body>
                 </Card>
             ))}
+            <Button onClick={ (e) => { createQuiz( quizName, description, numQuestions, questions ) } }>Create Quiz</Button>
+            <br/>
+            <br/>
 
 
         </div>

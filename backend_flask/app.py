@@ -4,6 +4,8 @@ from flask import request, flash
 from flask import Response
 from flask_cors import CORS
 import json
+from datetime import datetime
+import pytz
 import os
 
 import firebase_admin
@@ -90,6 +92,35 @@ def createQuiz():
 
 
     return { "status_code": 200 }
+
+@app.route("/createLeaderboardAttempt", methods=['POST'])
+def createLeaderboardAttempt():
+    _data = request.get_json()
+
+    # ------------------ START: BOILER PLATE TO GET NY TIME/EASTERN TIME ZONE  ------------------
+
+    tz_NY = pytz.timezone('America/New_York') 
+
+    datetime_NY = datetime.now(tz_NY)
+
+    print("NY time:", str(datetime_NY.strftime("%D %T US Eastern Time")))
+
+    # ------------------ END: BOILER PLATE TO GET NY TIME/EASTERN TIME ZONE  --------------------
+
+    time_str = str(datetime_NY.strftime("%D %T US Eastern Time"))
+
+    toAdd = { 
+        "quiz_name":  _data['quiz_name'],
+        "num_correct": _data['num_correct'],
+        "num_total": _data['num_total'],
+        "time": time_str
+    }
+
+    db.collection("leaderboard").add(toAdd)
+
+
+    return { "status_code": 200 }
+
 
 
 if __name__ == "__main__":

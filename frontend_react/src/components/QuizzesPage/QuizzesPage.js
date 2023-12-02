@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { getAllQuizzes } from '../../api/helper/QuizApi';
 import './QuizzesPage.css'; // Import your CSS file
+import Leaderboard from '../Leaderboard/Leaderboard';
 
 
 
@@ -45,7 +46,10 @@ const QuizzesPage = ({
     return (
         <>
             <h1>Would you like to create your own quiz? Click below</h1>
+            <Button onClick={(e) => { window.location.replace(`http://localhost:3000/leaderboard`) }}>Leaderboard</Button>
+            <br/>
             <Button onClick={(e) => { window.location.replace(`http://localhost:3000/createQuiz`) }}>Create a Quiz</Button>
+
             <h1 className="mt-4 mb-4">List of Cards</h1>
 
             {quizzes.length !== 0 ?

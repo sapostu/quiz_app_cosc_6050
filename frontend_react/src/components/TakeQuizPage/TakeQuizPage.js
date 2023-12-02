@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import { getQuizQuestions } from '../../api/helper/QuizApi';
+import { createLeaderboardAttempt, getQuizQuestions } from '../../api/helper/QuizApi';
 import { Button } from 'react-bootstrap';
 import './TakeQuizPage.css'; // Import your CSS file
 import App from '../../App';
@@ -15,6 +15,9 @@ const TakeQuizPage = ({
     const [qIndex, setQIndex] = useState(1)
     const [currentQuestion, setCurrentQuestion] = useState()
     const [completedFlag, setCompletedFlag] = useState(false)
+
+    const [quizName, setQuizName] = useState("")
+    const [numQuestions, setNumQuestions] = useState(0)
 
 
 
@@ -37,6 +40,8 @@ const TakeQuizPage = ({
             }
             else {
                 setCompletedFlag(true)
+
+                // createLeaderboardAttempt( quizName, ( points + 1 ), numQuestions );
             }
 
 
@@ -52,6 +57,8 @@ const TakeQuizPage = ({
             }
             else {
                 setCompletedFlag(true)
+
+                // createLeaderboardAttempt( quizName, points, numQuestions );
             }
         }
 
@@ -90,6 +97,9 @@ const TakeQuizPage = ({
             setQuestions(to_return)
             setCurrentQuestion(to_return[0])
 
+            setQuizName( request_body.quiz_name )
+            setNumQuestions( request_body.num_questions )
+
         }
 
         
@@ -112,6 +122,9 @@ const TakeQuizPage = ({
         
         <>
             <h1>Score = {points}/{questions.length}</h1>
+            <Button onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }}>Back to Quizzes</Button>
+            <br/>
+            <br/>
 
             { !completedFlag ? 
 

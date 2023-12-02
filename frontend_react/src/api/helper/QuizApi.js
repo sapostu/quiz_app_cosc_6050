@@ -91,3 +91,31 @@ export async function createQuiz( quizName, description, numQuestions, questions
     return obj
 
 }
+
+
+export async function createLeaderboardAttempt( quizName, points, numQuestions ) {
+
+    const url = "http://localhost:8000/createLeaderboardAttempt"
+    let _body = {
+        'quiz_name': quizName,
+        'num_correct': points,
+        'num_total': numQuestions
+    }
+
+    let obj;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(_body)
+    });
+
+    obj = await res.json();
+
+
+    console.log("OBJ GOT GOT = ", obj)
+
+    return obj
+
+
+}
