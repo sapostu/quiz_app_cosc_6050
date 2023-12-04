@@ -104,6 +104,9 @@ def createLeaderboardAttempt():
     datetime_NY = datetime.now(tz_NY)
 
     print("NY time:", str(datetime_NY.strftime("%D %T US Eastern Time")))
+    
+    date_string = datetime_NY.strftime("%Y%m%d%H%M%S")
+
 
     # ------------------ END: BOILER PLATE TO GET NY TIME/EASTERN TIME ZONE  --------------------
 
@@ -113,7 +116,8 @@ def createLeaderboardAttempt():
         "quiz_name":  _data['quiz_name'],
         "num_correct": _data['num_correct'],
         "num_total": _data['num_total'],
-        "time": time_str
+        "time": time_str,
+        "sort_by": int(date_string)
     }
 
     db.collection("leaderboard").add(toAdd)
@@ -122,35 +126,38 @@ def createLeaderboardAttempt():
     return { "status_code": 200 }
 
 
+@app.route("/getLeaderboard", methods=['POST'])
+def getLeaderboard():
+
+    # leaderboard_collection = [doc.to_dict() for doc in leaderboard_ref.stream()]
+    # print(f"\n\nCollection = {leaderboard_collection}  \n\n")
+
+
+    leaderboard_ref = db.collection('leaderboard')
+
+
+    docs = leaderboard_ref.stream()
+
+    data = []
+
+    for doc in docs:
+        _data = doc.to_dict()
+        data_entry = {
+            "id": doc.id,
+            "num_correct": _data['num_correct'],
+            "num_total": _data['num_total'],
+            "quiz_name": _data['quiz_name'],
+            "sort_by": _data['sort_by'],
+            "time": _data['time']
+        }
+
+        data.append(data_entry)
+        # print(f"DOC = {doc}")
+    
+    # print(f"ARRAY = {data}")
+    
+    return json.dumps(data)
+
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
-
-
-
-        # print(f"request = {request.json}")
-
-    # quiz_doc = db.collection('quizzes').document('9jHt9mH1PHI9R2r0dVBc').get()
-
-    # if quiz_doc.exists:
-    #     resp.quiz_name = str(quiz_doc.to_dict()['quiz_name'])
-    #     resp.num_questions = str(quiz_doc.to_dict()['num_questions'])
-    # else:
-    #     resp.quiz_name = "does not exist"
-    #     resp.num_questions = "does not exist"
-
-    # print(f"response we sending = {resp}")
-
-# FIREBASE EXAMPLE QUERIES
-
-# TO ADD TO THE DATA BASE
-    # db.collection('colors').add({'name':'purple', 'value':'#screw'})
-
-# TO GET DOCUMENT BASED ON ITS ID
-    # get_quiz = db.collection('quizzes').document('9jHt9mH1PHI9R2r0dVBc').get()
-    # if get_quiz.exists:
-    #     print(f"Document data: {get_quiz.to_dict()}")
-
-
-# TO GET A DOCUMENT BASED UPON ITS FIELDS
-    # docs = db.collection("quizzes").where(filter=FieldFilter("quiz_name", "==", "addition")).get()

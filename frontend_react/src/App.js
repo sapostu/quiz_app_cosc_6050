@@ -7,6 +7,8 @@ import TakeQuizPage from './components/TakeQuizPage/TakeQuizPage';
 import CreateQuizPage from './components/CreateQuizPage/CreateQuizPage';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <div>

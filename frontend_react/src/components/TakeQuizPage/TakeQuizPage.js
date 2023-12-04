@@ -41,7 +41,7 @@ const TakeQuizPage = ({
             else {
                 setCompletedFlag(true)
 
-                // createLeaderboardAttempt( quizName, ( points + 1 ), numQuestions );
+                createLeaderboardAttempt( quizName, ( points + 1 ), numQuestions );
             }
 
 
@@ -58,7 +58,7 @@ const TakeQuizPage = ({
             else {
                 setCompletedFlag(true)
 
-                // createLeaderboardAttempt( quizName, points, numQuestions );
+                createLeaderboardAttempt( quizName, points, numQuestions );
             }
         }
 
@@ -166,6 +166,8 @@ const TakeQuizPage = ({
                 <div>THANK YOU FOR COMPLETING THE QUIZ! YOUR RESPONSE WAS RECORDED</div> 
 
                 <Button variant="primary" onClick={ (e) => { window.location.replace(`http://localhost:3000/quizzes`) } } >Home</Button>
+                <br/>
+                <br/>
                 <Button variant="primary" onClick={ (e) => { window.location.reload() } }>Retake</Button>
 
             </>

@@ -119,3 +119,28 @@ export async function createLeaderboardAttempt( quizName, points, numQuestions )
 
 
 }
+
+export async function getLeaderboard() {
+
+    const url = "http://localhost:8000/getLeaderboard"
+    let _body = {
+        'name': 'hello',
+        'number': 1110
+    }
+
+    let obj;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(_body)
+    });
+
+    obj = await res.json();
+
+
+    // console.log("leaderboard = ", obj)
+
+    return obj
+
+}

@@ -102,7 +102,11 @@ const CreateQuizPage = ({
         <div>
             <h1>Create Quiz!! Add questions below, press 'Submit' when done</h1>
             <Button onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }}>Back to Quizzes</Button>
+            <br/>
+            <br/>
             <Button onClick={ (e) => { let temp = addQuestion(); setQuestions(temp.slice(0)); }}>Add Question</Button>
+            <br/>
+            <br/>
 
             <span>Quiz Name</span>
             <input type="text" defaultValue="" onChange={ (e) => { setQuizName(e.target.value) } }/>
