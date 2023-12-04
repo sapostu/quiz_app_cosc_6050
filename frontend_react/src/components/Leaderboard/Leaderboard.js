@@ -46,7 +46,6 @@ const Leaderboard = ({
             <Button onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }}>Back to Quizzes</Button>
             <br />
             <br />
-            <Button onClick={(e) => { getLeaderboard() }}>Get Leaderboard</Button>
 
 
             <Table table-striped bordered hover>
@@ -58,19 +57,6 @@ const Leaderboard = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {/* <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>john@example.com</td>
-                        <td>Admin</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Doe</td>
-                        <td>jane@example.com</td>
-                        <td>User</td>
-                    </tr> */}
-                    {/* Add more rows as needed */}
                     {leaderboard.map(entry => (
                         <tr>
                             <td>{entry.quiz_name}</td>

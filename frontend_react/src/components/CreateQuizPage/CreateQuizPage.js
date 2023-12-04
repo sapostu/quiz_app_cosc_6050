@@ -46,6 +46,8 @@ const CreateQuizPage = ({
 
         setNumQuestions( numQuestions + 1 )
 
+        console.log("AFTER ADDED QUESTIONS = ", temp)
+
 
         return temp
 
@@ -53,7 +55,21 @@ const CreateQuizPage = ({
 
     }
 
-    const updateQuizQuestion = (_id, _type, _value) => {
+    const updateQuizQuestion = (passed_id, _type, _value) => {
+
+        console.log("ID ID ID DI = ", passed_id )
+
+        let _id = -100
+
+        for ( let i = 0; i < numQuestions; i += 1 ) {
+
+            if ( questions[i].id === passed_id ) {
+                
+                _id = i
+
+            }
+
+        }
 
         switch (_type) {
 
@@ -98,13 +114,43 @@ const CreateQuizPage = ({
 
     };
 
+    const removeQuestion = ( selected_id ) => {
+
+        let current_questions = questions        
+
+        for ( let i = 0; i < current_questions.length; i += 1 ) {
+
+            if ( current_questions[i].id === selected_id ) {
+                
+                current_questions.splice(i, 1)
+
+                console.log("current questions = ", current_questions)
+
+                let new_num_questions = numQuestions - 1
+
+                setNumQuestions(new_num_questions)
+
+                alert(`Deleted your desired question!`)
+
+                return current_questions
+
+            }
+
+
+        }
+
+        return current_questions
+    }
+
+    console.log("QUESTIONS QUESTIONS = ", questions)
+
     return (
         <div>
             <h1>Create Quiz!! Add questions below, press 'Submit' when done</h1>
             <Button onClick={(e) => { window.location.replace(`http://localhost:3000/quizzes`) }}>Back to Quizzes</Button>
             <br/>
             <br/>
-            <Button onClick={ (e) => { let temp = addQuestion(); setQuestions(temp.slice(0)); }}>Add Question</Button>
+            <Button onClick={ (e) => { let _add = addQuestion(); setQuestions(_add.slice(0)); }}>Add Question</Button>
             <br/>
             <br/>
 
@@ -120,29 +166,56 @@ const CreateQuizPage = ({
 
             <br/>
             <span>Number of Questions: {numQuestions}</span>
-
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
             {questions.map(question => (
                 <Card key={question.id} className="quizzes-page-card">
 
-                    <Card.Title>New Question {question.id + 1}</Card.Title>
+                    <Card.Title>New Question</Card.Title>
                     <Card.Body>
 
                         <Card.Text>Question</Card.Text>
                         <input type="text" defaultValue={question.question} onChange={(e) => { updateQuizQuestion(question.id, "question", e.target.value) }} />
+                        <br/>
+                        <br/>
                         <Card.Text>Option A:</Card.Text>
                         <input type="text" defaultValue={question.A} onChange={(e) => { updateQuizQuestion(question.id, "A", e.target.value) }} />
+                        <br/>
+                        <br/>
                         <Card.Text>Option B:</Card.Text>
                         <input type="text" defaultValue={question.B} onChange={(e) => { updateQuizQuestion(question.id, "B", e.target.value) }} />
+                        <br/>
+                        <br/>
                         <Card.Text>Option C:</Card.Text>
                         <input type="text" defaultValue={question.C} onChange={(e) => { updateQuizQuestion(question.id, "C", e.target.value) }} />
+                        <br/>
+                        <br/>
                         <Card.Text>Option D:</Card.Text>
                         <input type="text" defaultValue={question.D} onChange={(e) => { updateQuizQuestion(question.id, "D", e.target.value) }} />
+                        <br/>
+                        <br/>
                         <Card.Text>CORRECT ANSWER ( A, B, C, D )</Card.Text>
                         <input type="text" defaultValue={question.correct_answer} onChange={(e) => { updateQuizQuestion(question.id, "correct_answer", e.target.value) }} />
+
+                        { numQuestions > 1 ? 
+
+                            <>
+                                <br/>
+                                <br/>
+                                <Button variant="danger" onClick={ (e) => { let _remove = removeQuestion(question.id); setQuestions(_remove.slice(0)); } } >Delete Question</Button>                            
+                                <br/>
+                                <br/>
+                            </>
+        
+                        :
+
+                        <></>
+
+                        }
 
                     </Card.Body>
                 </Card>
             ))}
+            </div>
             <Button onClick={ (e) => { createQuiz( quizName, description, numQuestions, questions ) } }>Create Quiz</Button>
             <br/>
             <br/>

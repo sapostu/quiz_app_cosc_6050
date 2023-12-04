@@ -169,6 +169,9 @@ const TakeQuizPage = ({
                 <br/>
                 <br/>
                 <Button variant="primary" onClick={ (e) => { window.location.reload() } }>Retake</Button>
+                <br/>
+                <br/>
+                <Button onClick={(e) => { window.location.replace(`http://localhost:3000/leaderboard`) }}>Leaderboard</Button>
 
             </>
 
